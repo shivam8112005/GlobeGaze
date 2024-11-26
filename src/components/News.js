@@ -40,6 +40,8 @@ export class News extends Component {
     
   }
   render() {
+    console.log("render");
+    
     return (
       <div className='container my-3' >
         <h2>GlobeGaze Top HeadLines</h2>
