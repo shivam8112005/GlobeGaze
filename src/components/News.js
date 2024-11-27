@@ -43,20 +43,37 @@ export class News extends Component {
 //componentDidMount is used to do any thing like fetch data or api just after the rendering of components on dom
  async componentDidMount(){
     console.log("cdm");
-    const url="https://newsapi.org/v2/top-headlines?country=us&apiKey=6e6312a61f6745ad9d227f8d22d095eb";
+    const url="https://newsapi.org/v2/top-headlines?country=us&apiKey=6e6312a61f6745ad9d227f8d22d095eb&pageSize=20";
     let data= await fetch(url);
     let parseData= await data.json();
     console.log(parseData);
     this.setState({articles: parseData.articles})
     
   }
-  handleNextClick=()=>{
+  handleNextClick=async ()=>{
 console.log("next");
-this.setState({page:this.state.page+1})
+
+const url=`https://newsapi.org/v2/top-headlines?country=us&apiKey=6e6312a61f6745ad9d227f8d22d095eb&page=${this.state.page+1 }&pageSize=20`;
+let data= await fetch(url);
+let parseData= await data.json();
+this.setState({page:this.state.page+1, articles: parseData.articles})
+console.log(parseData);
+// this.setState({articles: parseData.articles})
+
+
+
 
   }
-  handlePrevCick=()=>{
+  handlePrevCick=async ()=>{
 console.log("prev");
+
+
+// console.log("next");
+this.setState({page:this.state.page-1, articles: parseData.articles})
+const url=`https://newsapi.org/v2/top-headlines?country=us&apiKey=6e6312a61f6745ad9d227f8d22d095eb&page=${this.state.page }&pageSize=20`;
+let data= await fetch(url);
+let parseData= await data.json();
+console.log(parseData);
 
   }
   render() {
