@@ -47,17 +47,22 @@ export class News extends Component {
     let data= await fetch(url);
     let parseData= await data.json();
     console.log(parseData);
-    this.setState({articles: parseData.articles})
+    this.setState({articles: parseData.articles, totalResults: parseData.totalResults})
     
   }
   handleNextClick=async ()=>{
 console.log("next");
-
+if(this.state.page<=Math.ceil(this.state.totalResults/20)){
+  console.log(this.state.page);
+  console.log(Math.ceil(this.state.totalResults/20));
+  
+  
 const url=`https://newsapi.org/v2/top-headlines?country=us&apiKey=6e6312a61f6745ad9d227f8d22d095eb&page=${this.state.page+1 }&pageSize=20`;
 let data= await fetch(url);
 let parseData= await data.json();
 this.setState({page:this.state.page+1, articles: parseData.articles})
 console.log(parseData);
+}
 // this.setState({articles: parseData.articles})
 
 
@@ -69,10 +74,11 @@ console.log("prev");
 
 
 // console.log("next");
-this.setState({page:this.state.page-1, articles: parseData.articles})
-const url=`https://newsapi.org/v2/top-headlines?country=us&apiKey=6e6312a61f6745ad9d227f8d22d095eb&page=${this.state.page }&pageSize=20`;
+
+const url=`https://newsapi.org/v2/top-headlines?country=us&apiKey=6e6312a61f6745ad9d227f8d22d095eb&page=${this.state.page-1 }&pageSize=20`;
 let data= await fetch(url);
 let parseData= await data.json();
+this.setState({page:this.state.page-1, articles: parseData.articles})
 console.log(parseData);
 
   }
@@ -102,7 +108,7 @@ console.log(parseData);
         </div>
        <div className="container d-flex justify-content-around my-4">
        <button disabled={this.state.page<=1} type="button" className="btn btn-dark" onClick={this.handlePrevCick}>&larr; Previous</button>
-       <button type="button" className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
+       <button type="button" disabled={this.state.page==Math.ceil(this.state.totalResults/20)} className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
        </div>
       </div>
     )
