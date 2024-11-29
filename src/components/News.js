@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
+import Spinner from './Spinner'
+import PropTypes from 'prop-types'
 
 export class News extends Component {
  articles=[
@@ -31,37 +33,56 @@ export class News extends Component {
   // }
   ];
   // page=1;
+  static defaultProps={
+country:"us",
+pagesize:6,
+category:"general"
+  }
+  static propTypes={
+    country:PropTypes.string,
+    pagesize:PropTypes.number  ,
+    category:PropTypes.string
+      }
   constructor(){
     super();
     console.log("hello I am a constructor from news component");
     this.state={
       articles:this.articles,
-     page:1
+     page:1,
+     loading:false
+
     }
     
   }
+  //businessentertainmentgeneralhealthsciencesportstechnology
 //componentDidMount is used to do any thing like fetch data or api just after the rendering of components on dom
  async componentDidMount(){
     console.log("cdm");
-    const url="https://newsapi.org/v2/top-headlines?country=us&apiKey=6e6312a61f6745ad9d227f8d22d095eb&pageSize=20";
+    this.setState({loading:true})
+    const url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=6e6312a61f6745ad9d227f8d22d095eb&pageSize=${this.props.pagesize}`;
     let data= await fetch(url);
     let parseData= await data.json();
     console.log(parseData);
-    this.setState({articles: parseData.articles, totalResults: parseData.totalResults})
+    this.setState({articles: parseData.articles, totalResults: parseData.totalResults, loading:false})
     
   }
   handleNextClick=async ()=>{
 console.log("next");
-if(this.state.page<=Math.ceil(this.state.totalResults/20)){
+if(this.state.page<=Math.ceil(this.state.totalResults/this.props.pagesize)){
   console.log(this.state.page);
-  console.log(Math.ceil(this.state.totalResults/20));
+  console.log(Math.ceil(this.state.totalResults/this.props.pagesize));
+  // const main=document.querySelector(".main");
+  // main.innerHTML="";
+
+  this.setState({loading:true})
   
-  
-const url=`https://newsapi.org/v2/top-headlines?country=us&apiKey=6e6312a61f6745ad9d227f8d22d095eb&page=${this.state.page+1 }&pageSize=20`;
+const url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=6e6312a61f6745ad9d227f8d22d095eb&page=${this.state.page+1 }&pageSize=${this.props.pagesize}`;
 let data= await fetch(url);
 let parseData= await data.json();
 this.setState({page:this.state.page+1, articles: parseData.articles})
+this.setState({loading:false})
 console.log(parseData);
+
 }
 // this.setState({articles: parseData.articles})
 
@@ -74,11 +95,11 @@ console.log("prev");
 
 
 // console.log("next");
-
-const url=`https://newsapi.org/v2/top-headlines?country=us&apiKey=6e6312a61f6745ad9d227f8d22d095eb&page=${this.state.page-1 }&pageSize=20`;
+this.setState({loading:true})
+const url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=6e6312a61f6745ad9d227f8d22d095eb&page=${this.state.page-1 }&pageSize=${this.props.pagesize}`;
 let data= await fetch(url);
 let parseData= await data.json();
-this.setState({page:this.state.page-1, articles: parseData.articles})
+this.setState({page:this.state.page-1, articles: parseData.articles, loading:false})
 console.log(parseData);
 
   }
@@ -86,11 +107,12 @@ console.log(parseData);
     console.log("render");
     
     return (
-      <div className='container my-3' >
-        <h2>GlobeGaze Top HeadLines</h2>
+      <div className='container my-3 main' >
+        <h2 className='text-center my-4 heading'>GlobeGaze Top HeadLines</h2>
+        {this.state.loading && <Spinner/>}
        
         <div className="row">
-        {this.state.articles.map((ele)=>{
+        {!this.state.loading && this.state.articles.map((ele)=>{
           let des;
           if(ele.description!=null && ele.description.length>35){
            des= ele.description.substring(0,36)+"...";
@@ -108,7 +130,7 @@ console.log(parseData);
         </div>
        <div className="container d-flex justify-content-around my-4">
        <button disabled={this.state.page<=1} type="button" className="btn btn-dark" onClick={this.handlePrevCick}>&larr; Previous</button>
-       <button type="button" disabled={this.state.page==Math.ceil(this.state.totalResults/20)} className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
+       <button type="button" disabled={this.state.page===Math.ceil(this.state.totalResults/this.props.pagesize)} className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
        </div>
       </div>
     )
