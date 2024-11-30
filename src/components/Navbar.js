@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import {Link} from 'react-router-dom';
 export default class Navbar extends Component {
 
 
@@ -29,25 +29,26 @@ export default class Navbar extends Component {
           <a className="nav-link" href="/about">About</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/about">business</a>
+          <Link className="nav-link" to={"/buisness"}>Business</Link>
+          {/* <a className="nav-link" href="/about">Business</a> */}
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/about">entertainment</a>
+          <a className="nav-link" href="/about">Entertainment</a>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <a className="nav-link" href="/about">general</a>
+        </li> */}
+        <li className="nav-item">
+          <a className="nav-link" href="/about">Health</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/about">health</a>
+          <a className="nav-link" href="/about">Science</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/about">science</a>
+          <a className="nav-link" href="/about">Sports</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/about">sports</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/about">technology</a>
+          <a className="nav-link" href="/about">Technology</a>
         </li>
         
       
