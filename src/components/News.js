@@ -3,6 +3,12 @@ import NewsItem from './NewsItem'
 import Spinner from './Spinner'
 import PropTypes from 'prop-types'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import pagination from './pagination';
+// import Pagination from './pagination';
+
+
+
+import Pagination from './Pagination';
 export class News extends Component {
  articles=[
   // {
@@ -32,6 +38,7 @@ export class News extends Component {
   // "content": "Last week, we at ESPNcricinfo did something we have been thinking of doing for eight years now: pretend-live ball-by-ball commentary for a classic cricket match. We knew the result, yes, but we tried… [+6823 chars]"
   // }
   ];
+
   // page=1;
   static defaultProps={
 country:"us",
@@ -48,59 +55,171 @@ category:"general"
     console.log("hello I am a constructor from news component");
     this.state={
       articles:this.articles,
-     page:1,
+     page:0,
      loading:false
-
     }
+    
     
   }
   //businessentertainmentgeneralhealthsciencesportstechnology
 //componentDidMount is used to do any thing like fetch data or api just after the rendering of components on dom
  async componentDidMount(){
-    console.log("cdm");
+    // console.log("cdm");
+    // this.setState({loading:true})
+    // // const url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=6e6312a61f6745ad9d227f8d22d095eb&pageSize=${this.props.pagesize}`;
+    // const url=`https://newsapi90.p.rapidapi.com/topic/${this.props.category}?language=en-US&region=${this.props.country}`
+    // let data= await fetch(url);
+    // let parseData= await data.json();
+    // console.log(parseData);
+    // this.setState({articles: parseData.articles, totalResults: parseData.totalResults, loading:false})
+
+    // const url = 'https://newsapi90.p.rapidapi.com/trendingTopics?region=US';
+    // const options = {
+    //   method: 'GET',
+    //   headers: {
+    //     'x-rapidapi-key': '80776cd168msh624b0d29df5c6c5p10f474jsna3751aed83e0',
+    //     'x-rapidapi-host': 'newsapi90.p.rapidapi.com'
+    //   }
+    // };
+    
+    // try {
+    //   const response = await fetch(url, options);
+    //   const result = await response.text();
+    //   console.log(result);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+
+
     this.setState({loading:true})
-    const url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=6e6312a61f6745ad9d227f8d22d095eb&pageSize=${this.props.pagesize}`;
-    let data= await fetch(url);
-    let parseData= await data.json();
-    console.log(parseData);
-    this.setState({articles: parseData.articles, totalResults: parseData.totalResults, loading:false})
+    const url = 'https://google-news13.p.rapidapi.com/latest?lr=en-US';
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': '0420f61003msh9aedd34427cb2e2p1e2e38jsnd7cd3e4a891f',
+        'x-rapidapi-host': 'google-news13.p.rapidapi.com'
+      }
+    };
+    
+    try {
+      const response = await fetch(url, options);
+      const data=await response.json();
+      console.log(data);
+      const items = data.items; // Assuming 'items' contains the articles
+      const totalResults = items.length;
+      this.setState({articles:items, totalResults: totalResults, loading:false});
+      console.log(this.state.articles.length, " length");
+    } catch (error) {
+      console.error(error);
+    }
+
+
+    // const url = 'https://newsapi90.p.rapidapi.com/topic/latest?language=en-US&region=US';
+    // const options = {
+    //   method: 'GET',
+    //   headers: {
+    //     'x-rapidapi-key': '1d2e8c209cmsh96bc515df52a257p1399c2jsn89e3241a54a4',
+    //     'x-rapidapi-host': 'newsapi90.p.rapidapi.com'
+    //   }
+    // };
+    
+    // try {
+    //   const response = await fetch(url, options);
+    //   // const result = await response.text();
+    //   const data=await response.json();
+    //   console.log(data);
+    //   this.setState({articles:data});
+    // } catch (error) {
+    //   console.error(error);
+    // }
     
   }
   handleNextClick=async ()=>{
 console.log("next");
-if(this.state.page<=Math.ceil(this.state.totalResults/this.props.pagesize)){
+console.log(this.state.articles.length);
+
   console.log(this.state.page);
-  console.log(Math.ceil(this.state.totalResults/this.props.pagesize));
+
   // const main=document.querySelector(".main");
   // main.innerHTML="";
 
-  this.setState({loading:true})
+  // this.setState({loading:true})
   
-const url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=6e6312a61f6745ad9d227f8d22d095eb&page=${this.state.page+1 }&pageSize=${this.props.pagesize}`;
-let data= await fetch(url);
-let parseData= await data.json();
-this.setState({page:this.state.page+1, articles: parseData.articles})
-this.setState({loading:false})
-console.log(parseData);
+// const url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=6e6312a61f6745ad9d227f8d22d095eb&page=${this.state.page+1 }&pageSize=${this.props.pagesize}`;
+// const url=`https://newsapi90.p.rapidapi.com/${this.props.category}?region=${this.props.country}`
+// let data= await fetch(url);
+// let parseData= await data.json();
+// this.setState({page:this.state.page+1, articles: parseData.articles})
+// this.setState({loading:false})
+// console.log(parseData);
 
-}
+
+
+
+// const url = 'https://google-news13.p.rapidapi.com/latest?lr=en-US';
+// const options = {
+//   method: 'GET',
+//   headers: {
+//     'x-rapidapi-key': '1d2e8c209cmsh96bc515df52a257p1399c2jsn89e3241a54a4',
+//     'x-rapidapi-host': 'google-news13.p.rapidapi.com'
+//   }
+// };
+
+// try {
+//   const response = await fetch(url, options);
+//   const data=await response.json();
+//   console.log(data);
+//   const items = data.items; // Assuming 'items' contains the articles
+//       const totalResults = items.length;
+//       this.setState({page:this.state.page+1, articles:items, loading:false});
+// } catch (error) {
+//   console.error(error);
+// }
+
+
+// }
 // this.setState({articles: parseData.articles})
+this.setState({page:this.state.page+6});
 
-
+console.log(this.state.page);
 
 
   }
   handlePrevCick=async ()=>{
-console.log("prev");
+ console.log("prev");
+ console.log(this.state.articles.length);
+console.log(this.state.page);
 
 
-// console.log("next");
-this.setState({loading:true})
-const url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=6e6312a61f6745ad9d227f8d22d095eb&page=${this.state.page-1 }&pageSize=${this.props.pagesize}`;
-let data= await fetch(url);
-let parseData= await data.json();
-this.setState({page:this.state.page-1, articles: parseData.articles, loading:false})
-console.log(parseData);
+// // console.log("next");
+// this.setState({loading:true})
+// // const url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=6e6312a61f6745ad9d227f8d22d095eb&page=${this.state.page-1 }&pageSize=${this.props.pagesize}`;
+// // const url=`https://newsapi90.p.rapidapi.com/${this.props.category}?region=${this.props.country}`
+// // let data= await fetch(url);
+// // let parseData= await data.json();
+// // this.setState({page:this.state.page-1, articles: parseData.articles, loading:false})
+// // console.log(parseData);
+
+
+// const url = 'https://google-news13.p.rapidapi.com/latest?lr=en-US';
+// const options = {
+//   method: 'GET',
+//   headers: {
+//     'x-rapidapi-key': '1d2e8c209cmsh96bc515df52a257p1399c2jsn89e3241a54a4',
+//     'x-rapidapi-host': 'google-news13.p.rapidapi.com'
+//   }
+// };
+
+// try {
+//   const response = await fetch(url, options);
+//   const data=await response.json();
+//   console.log(data);
+//   this.setState({articles:data.items});
+// } catch (error) {
+//   console.error(error);
+// }
+this.setState({page:this.state.page-6});
+console.log(this.state.page);
 
   }
   render() {
@@ -112,25 +231,14 @@ console.log(parseData);
         {this.state.loading && <Spinner/>}
        
         <div className="row">
-        {!this.state.loading && this.state.articles.map((ele)=>{
-          let des;
-          if(ele.description!=null && ele.description.length>35){
-           des= ele.description.substring(0,36)+"...";
-        }let t;
-        if(ele.title!=null && ele.title.length>30){
-          t=ele.title.substring(0,31)+"...";
-        }
-          return <div className="col-md-4" key={ele.url}>
-            <NewsItem  title={t} description={des} imageUrl={ele.urlToImage} newsUrl={ele.url}/>
-            </div>
-        })}
+       <Pagination items={this.state.articles} page={this.state.page} loading={this.state.loading}/>
       
          
             
         </div>
        <div className="container d-flex justify-content-around my-4">
-       <button disabled={this.state.page<=1} type="button" className="btn btn-dark" onClick={this.handlePrevCick}>&larr; Previous</button>
-       <button type="button" disabled={this.state.page===Math.ceil(this.state.totalResults/this.props.pagesize)} className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
+       <button disabled={this.state.page-6<0} type="button" className="btn btn-dark" onClick={this.handlePrevCick}>&larr; Previous</button>
+       <button type="button" disabled={this.state.page+6>=this.state.articles.length} className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
        </div>
       </div>
     )

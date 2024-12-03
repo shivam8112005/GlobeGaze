@@ -23,32 +23,32 @@ export default class Navbar extends Component {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <a className="nav-link active" onClick={handleNavClick} aria-current="page" href="/">Home</a>
+        <Link className="nav-link" to="/">Home</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/about">About</a>
+        
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to={"/buisness"}>Business</Link>
+          <Link className="nav-link" to="/business">Business</Link>
           {/* <a className="nav-link" href="/about">Business</a> */}
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/about">Entertainment</a>
+        <Link className="nav-link" to="/entertainment">Entertainment</Link>
         </li>
         {/* <li className="nav-item">
           <a className="nav-link" href="/about">general</a>
         </li> */}
         <li className="nav-item">
-          <a className="nav-link" href="/about">Health</a>
+        <Link className="nav-link" to="/health">Health</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/about">Science</a>
+        <Link className="nav-link" to="/science">Science</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/about">Sports</a>
+        <Link className="nav-link" to="/sports">Sports</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/about">Technology</a>
+        <Link className="nav-link" to="/technology">Technology</Link>
         </li>
         
       
@@ -61,3 +61,9 @@ export default class Navbar extends Component {
     )
   }
 }
+
+
+
+
+
+

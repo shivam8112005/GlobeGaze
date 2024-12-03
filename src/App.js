@@ -10,45 +10,45 @@ export default class App extends Component {
   render() {
     return (
       <div>
-      
+   {/* Without a unique key, React assumes that the component hasn't changed and does not reinitialize it,    */}
 <Router>
 <Navbar/>
 <div className="container my-4">
 <Routes>
   <Route exact path="/"
   element={
-    <News pagesize={6} country={"us"} category={"general"} />
+    <News key="latest" pagesize={6} country={"us"} category={"latest"} />
   }
  
   />
-    <Route exact path="/buisness"
+    <Route exact path="/business"
   element={
-    <News pagesize={6} country={"us"} category={"business"} />
+    <News key="business" pagesize={6} country={"us"} category={"business"} />
   }
   />
    <Route exact path="/entertainment"
   element={
-    <News pagesize={6} country={"us"} category={"entertainment"} />
+    <News key="entertainment" pagesize={6} country={"us"} category={"entertainment"} />
   }
   />
    <Route exact path="/health"
   element={
-    <News pagesize={6} country={"us"} category={"health"} />
+    <News key="health" pagesize={6} country={"us"} category={"health"} />
   }
   />
    <Route exact path="/science"
   element={
-    <News pagesize={6} country={"us"} category={"science"} />
+    <News key="science" pagesize={6} country={"us"} category={"science"} />
   }
   />
    <Route exact path="/sports"
   element={
-    <News pagesize={6} country={"us"} category={"sports"} />
+    <News key="sports" pagesize={6} country={"us"} category={"sports"} />
   }
   />
    <Route exact path="/technology"
   element={
-    <News pagesize={6} country={"us"} category={"technology"} />
+    <News key="technology" pagesize={6} country={"us"} category={"technology"} />
   }
   />
   
