@@ -13,7 +13,7 @@ export default class App extends Component {
    {/* Without a unique key, React assumes that the component hasn't changed and does not reinitialize it,    */}
 <Router>
 <Navbar/>
-<div className="container my-4">
+<div className="container main">
 <Routes>
   <Route exact path="/"
   element={
@@ -43,7 +43,7 @@ export default class App extends Component {
   />
    <Route exact path="/sports"
   element={
-    <News key="sports" pagesize={6} country={"us"} category={"sports"} />
+    <News key="sports" pagesize={6} country={"us"} category={"sport"} />
   }
   />
    <Route exact path="/technology"

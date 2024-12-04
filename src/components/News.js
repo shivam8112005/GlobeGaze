@@ -92,11 +92,11 @@ category:"general"
 
 
     this.setState({loading:true})
-    const url = 'https://google-news13.p.rapidapi.com/latest?lr=en-US';
+     const url = `https://google-news13.p.rapidapi.com/${this.props.category}?lr=en-US`;
     const options = {
       method: 'GET',
       headers: {
-        'x-rapidapi-key': '0420f61003msh9aedd34427cb2e2p1e2e38jsnd7cd3e4a891f',
+        'x-rapidapi-key': '1ff0eb9577msh6e652125f360fe1p17ad1ejsn437f84ee0526',
         'x-rapidapi-host': 'google-news13.p.rapidapi.com'
       }
     };
@@ -134,8 +134,15 @@ category:"general"
     // }
     
   }
+   scrollToTop=()=> {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Smooth scrolling effect
+    });
+}
   handleNextClick=async ()=>{
 console.log("next");
+this.scrollToTop();
 console.log(this.state.articles.length);
 
   console.log(this.state.page);
@@ -179,7 +186,7 @@ console.log(this.state.articles.length);
 
 // }
 // this.setState({articles: parseData.articles})
-this.setState({page:this.state.page+6});
+this.setState({page:this.state.page+this.props.pagesize});
 
 console.log(this.state.page);
 
@@ -187,6 +194,7 @@ console.log(this.state.page);
   }
   handlePrevCick=async ()=>{
  console.log("prev");
+ this.scrollToTop();
  console.log(this.state.articles.length);
 console.log(this.state.page);
 
@@ -218,7 +226,7 @@ console.log(this.state.page);
 // } catch (error) {
 //   console.error(error);
 // }
-this.setState({page:this.state.page-6});
+this.setState({page:this.state.page-this.props.pagesize});
 console.log(this.state.page);
 
   }
@@ -226,7 +234,7 @@ console.log(this.state.page);
     console.log("render");
     
     return (
-      <div className='container my-3 main' >
+      <div className='container main' >
         <h2 className='text-center my-4 heading'>GlobeGaze Top HeadLines</h2>
         {this.state.loading && <Spinner/>}
        
@@ -236,9 +244,9 @@ console.log(this.state.page);
          
             
         </div>
-       <div className="container d-flex justify-content-around my-4">
-       <button disabled={this.state.page-6<0} type="button" className="btn btn-dark" onClick={this.handlePrevCick}>&larr; Previous</button>
-       <button type="button" disabled={this.state.page+6>=this.state.articles.length} className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
+       <div className="container my-4 d-flex justify-content-around" >
+       <button disabled={this.state.page-this.props.pagesize<0} type="button" className="btn btn-dark" onClick={this.handlePrevCick}>&larr; Previous</button>
+       <button type="button" disabled={this.state.page+this.props.pagesize>=this.state.articles.length} className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
        </div>
       </div>
     )

@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 export default class Pagination extends Component {
   render() {
-    // let ind=1;
+    let ind=0;
     return (
-        <div className='row'>
+        <div className='row my-4'>
                   {
                   !this.props.loading && this.props.items  && this.props.items.slice(this.props.page, this.props.page+6).map((ele)=>{
                     let des;
                     let pre;
                     let t;
                     let img;
+                    // let ind=0;
                 if(ele!=undefined || ele!=null){
                  
                    pre=ele.snippet;
@@ -27,7 +28,7 @@ export default class Pagination extends Component {
                   img=ele.images['thumbnailProxied'];
                 }
                 
-                return <div className="col-md-4" key={ele.url}>
+                return <div className="col-md-4" key={ind++}>
                 <NewsItem  title={t} description={des} imageUrl={img} newsUrl={ele.newsUrl}/>
                 </div>
 
