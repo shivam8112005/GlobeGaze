@@ -89,25 +89,29 @@ category:"general"
     // } catch (error) {
     //   console.error(error);
     // }
-
+// api=414069ce70mshf7eefb7310ac5f4p117c40jsnb0ed7a939c3a;
 
     this.setState({loading:true})
+    this.props.setProgress(10);
      const url = `https://google-news13.p.rapidapi.com/${this.props.category}?lr=en-US`;
     const options = {
       method: 'GET',
       headers: {
-        'x-rapidapi-key': '5fd094420cmshe06b55d4e360361p162ed1jsn18e653ef9e97',
+        'x-rapidapi-key': `${this.props.apiKey}`,
         'x-rapidapi-host': 'google-news13.p.rapidapi.com'
       }
     };
     
     try {
       const response = await fetch(url, options);
+      // this.props.setProgress(40);
       const data=await response.json();
       console.log(data);
+      this.props.setProgress(70);
       const items = data.items; // Assuming 'items' contains the articles
       const totalResults = items.length;
       this.setState({articles:items, totalResults: totalResults, loading:false});
+      this.props.setProgress(100);
       console.log(this.state.articles.length, " length");
     } catch (error) {
       console.error(error);
