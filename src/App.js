@@ -1,21 +1,19 @@
 
 import './App.css';
 
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import Navbar from './components/Navbar';
 import News from './components/News';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoadingBar from 'react-top-loading-bar' 
-export default class App extends Component {
-  apiKey=process.env.REACT_APP_NEWS_API
-  n="shivam"
-  state={
-    progress:0
+export default function App () {
+  const apiKey=process.env.REACT_APP_NEWS_API
+  const[progress, setProgress1]=useState(0);
+ 
+ const setProgress=(progress)=>{
+    setProgress1(progress);
   }
-  setProgress=(progress)=>{
-    this.setState({progress:progress})
-  }
-  render() {
+
     return (
       <div>
    {/* Without a unique key, React assumes that the component hasn't changed and does not reinitialize it,    */}
@@ -23,7 +21,7 @@ export default class App extends Component {
 <Navbar/>
 <LoadingBar
         color='#f11946'
-        progress={this.state.progress}
+        progress={progress}
       
        
       />
@@ -31,38 +29,38 @@ export default class App extends Component {
 <Routes>
   <Route exact path="/"
   element={
-    <News setProgress={this.setProgress} apiKey={this.apiKey} key="latest" pagesize={6} country={"us"} category={"latest"} />
+    <News setProgress={setProgress} apiKey={apiKey} key="latest" pagesize={6} country={"us"} category={"latest"} />
   }
  
   />
     <Route exact path="/business"
   element={
-    <News setProgress={this.setProgress} apiKey={this.apiKey} key="business" pagesize={6} country={"us"} category={"business"} />
+    <News setProgress={setProgress} apiKey={apiKey} key="business" pagesize={6} country={"us"} category={"business"} />
   }
   />
    <Route exact path="/entertainment"
   element={
-    <News setProgress={this.setProgress} apiKey={this.apiKey} key="entertainment" pagesize={6} country={"us"} category={"entertainment"} />
+    <News setProgress={setProgress} apiKey={apiKey} key="entertainment" pagesize={6} country={"us"} category={"entertainment"} />
   }
   />
    <Route exact path="/health"
   element={
-    <News setProgress={this.setProgress} apiKey={this.apiKey} key="health" pagesize={6} country={"us"} category={"health"} />
+    <News setProgress={setProgress} apiKey={apiKey} key="health" pagesize={6} country={"us"} category={"health"} />
   }
   />
    <Route exact path="/science"
   element={
-    <News setProgress={this.setProgress} apiKey={this.apiKey} key="science" pagesize={6} country={"us"} category={"science"} />
+    <News setProgress={setProgress} apiKey={apiKey} key="science" pagesize={6} country={"us"} category={"science"} />
   }
   />
    <Route exact path="/sports"
   element={
-    <News setProgress={this.setProgress} apiKey={this.apiKey} key="sports" pagesize={6} country={"us"} category={"sport"} />
+    <News setProgress={setProgress} apiKey={apiKey} key="sports" pagesize={6} country={"us"} category={"sport"} />
   }
   />
    <Route exact path="/technology"
   element={
-    <News setProgress={this.setProgress} apiKey={this.apiKey} key="technology" pagesize={6} country={"us"} category={"technology"} />
+    <News setProgress={setProgress} apiKey={apiKey} key="technology" pagesize={6} country={"us"} category={"technology"} />
   }
   />
   
@@ -72,7 +70,7 @@ export default class App extends Component {
       
       </div>
     )
-  }
+ 
 }
 
 

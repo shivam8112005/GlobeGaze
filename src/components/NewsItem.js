@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class NewsItem extends Component {
+export default function NewsItem(props) {
  
-  render() {
-    let {title, description, imageUrl, newsUrl}=this.props;
+ 
+    let {title, description, imageUrl, newsUrl}=props;
     return (
       <div>
         <div className="card my-3" style={{height: "25rem", backgroundColor:'#212529', color:'white'}}>
@@ -16,7 +16,7 @@ export default class NewsItem extends Component {
 </div>
       </div>
     )
-  }
+  
 }
 
 // export default NewsItem
