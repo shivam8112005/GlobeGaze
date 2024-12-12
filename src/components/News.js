@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './Spinner'
 import PropTypes from 'prop-types'
+import Pagination from './Pagination';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 
 
-import Pagination from './Pagination';
+
 // import { useEffect } from 'react'
 export default function News(props) {
   const [articles, setArticles] = useState([]);

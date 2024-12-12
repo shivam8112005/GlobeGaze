@@ -13,7 +13,7 @@ export default class Navbar extends Component {
       
     }
     return (
-      <div>
+      <div class="main-nav">
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
   <div className="container-fluid">
   <Link className="navbar-brand" to="/">GlobeGaze</Link>

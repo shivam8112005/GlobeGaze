@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
-export default class Pagination extends Component {
-  render() {
+export default function Pagination (props){
+  
     let ind=0;
     return (
         <div className='row my-4'>
                   {
-                  !this.props.loading && this.props.items  && this.props.items.slice(this.props.page, this.props.page+6).map((ele)=>{
+                  !props.loading && props.items  && props.items.slice(props.page, props.page+6).map((ele)=>{
                     let des;
                     let pre;
                     let t;
@@ -37,7 +37,7 @@ export default class Pagination extends Component {
                 })}
               </div>
     )
-  }
+  
 }
 
 

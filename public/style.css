@@ -13,3 +13,8 @@ body{
 .heading{
     color: rgb(200, 194, 194);
 }
+.main-nav{
+    top:0px;
+    position: sticky;
+    z-index: 1;
+}
