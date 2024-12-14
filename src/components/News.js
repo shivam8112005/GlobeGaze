@@ -56,7 +56,7 @@ const updatenews = async () => {
     console.error(error);
   }
 }
-
+//hello
 useEffect(() => {
   updatenews()
 }, [])
